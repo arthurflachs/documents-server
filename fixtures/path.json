@@ -1,0 +1,33 @@
+{
+  "path": [
+    { "title": "Arthur Flachs", "rights": ["READ_PERMISSION"]  },
+    { "title": "Course Documents", "rights": ["READ_PERMISSION"] },
+    { "title": "Economy", "rights": ["READ_PERMISSION"] }
+  ],
+  "documents": [{
+    "type": "folder",
+    "source": "DMS",
+    "token": "18312e0a0c6ae768d1d407619ca7f6ad1e20be43",
+    "title": "Economy assignment drafts",
+    "rights": ["READ_PERMISSION"],
+    "updatedDate": "2016-12-01T08:00:00Z"
+  },
+  {
+    "type": "file", 
+    "title": "Notes Live Class Dolor et a dicta repellat obcaecati.",
+    "source": "DMS",
+    "token": "18312e0a0c6ae768d1d407619ca7f6ad1e20be43",
+    "rights": [
+      "READ_PERMISSION",
+      "WRITE_PERMISSION"
+    ],
+    "updatedDate": "2016-12-01T08:00:00Z"
+  },
+  {
+    "type": "file",
+    "title": "Shared Document",
+    "rights": ["READ_PERMISSION"],
+    "updatedDate": "2016-12-01T08:00:00Z",
+    "url": "http://www.google.com"
+  }]
+}
