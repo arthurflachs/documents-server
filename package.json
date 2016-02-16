@@ -4,12 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "watch": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Arthur Flachs <aflachs@thestudnet.com>",
   "license": "UNLICENSED",
   "dependencies": {
+    "body-parser": "^1.15.0",
     "cors": "^2.7.1",
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "redis": "^2.4.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.8.1"
   }
 }
