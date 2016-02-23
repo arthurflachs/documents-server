@@ -24,15 +24,23 @@ app.get('/', (req, res) => readFolder(1).then(function(docs) {
 
 app.post('/', (req, res) => addDocument(req.body).then(addToFolder(1)).then(getDocument).then(d => res.json(d)));
 
+app.delete('/:id', (req, res) => deleteDocument(req.params.id).then(() => res.sendStatus(204)));
+
+function deleteDocument(docId) {
+  return new Promise(function(resolve) {
+    redis.del(`document:${docId}`, resolve);
+  });
+}
+
 function addDocument(doc) {
   return getNextDocumentKey().then(function(nextDoc) {
     return new Promise(resolve => redis.hmset(`document:${nextDoc}`, [
       'rights',
-      3,
+      7,
       'title',
       doc.title,
       'type',
-      'file',
+      doc.type,
       'updatedDate',
       doc.updatedDate,
       'source',
