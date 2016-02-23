@@ -24,7 +24,16 @@ app.get('/', (req, res) => readFolder(1).then(function(docs) {
 
 app.post('/', (req, res) => addDocument(req.body).then(addToFolder(1)).then(getDocument).then(d => res.json(d)));
 
-app.delete('/:id', (req, res) => deleteDocument(req.params.id).then(() => res.sendStatus(204)));
+app.delete('/:folder/:id', (req, res) => deleteDocument(req.params.id)
+           .then(() => deleteFromFolder(req.params.id, req.params.folder))
+           .then((req, res) => res.sendStatus(204)));
+
+function deleteFromFolder(docId, folderId) {
+  console.log(docId, folderId);
+  return new Promise(resolve => redis.lrem(`folder:${folderId}`, [-1, docId], function() {
+    console.log("?!!!!")
+  }));
+}
 
 function deleteDocument(docId) {
   return new Promise(function(resolve) {
@@ -65,7 +74,7 @@ const addToFolder = folderId => function(docId) {
 
 function getDocument(id) {
   return new Promise(function(resolve) {
-    redis.hgetall(`document:${id}`, (err, res) => resolve(res));
+    redis.hgetall(`document:${id}`, (err, res) => resolve(Object.assign(res, { id: id })));
   });
 }
 
