@@ -11,7 +11,7 @@ var app = express();
 app.use(cors());
 app.use(bodyParser.json())
 
-app.get('/', (req, res) => readFolder(1).then(function(docs) {
+app.get('/:folderId', (req, res) => readFolder(req.params.folderId).then(function(docs) {
   res.json({
     path: [
       { title: "Arthur Flachs", rights: ["READ_PERMISSION"]  },
