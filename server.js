@@ -1,3 +1,5 @@
+'use strict'
+
 var express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -42,20 +44,17 @@ function deleteDocument(docId) {
 
 function addDocument(doc) {
   return getNextDocumentKey().then(function(nextDoc) {
-    return new Promise(resolve => redis.hmset(`document:${nextDoc}`, [
-      'rights',
-      7,
-      'title',
-      doc.title,
-      'type',
-      doc.type,
-      'updatedDate',
-      doc.updatedDate,
-      'source',
-      doc.source,
-      'token',
-      doc.token
-    ], () => resolve(nextDoc)));
+    let description = [
+      'rights', 7,
+      'title', doc.title,
+      'type', doc.type,
+      'updatedDate', doc.updatedDate,
+      'source', doc.source,
+    ]
+    if (doc.token) {
+      description = description.concat(['token',doc.token])
+    }
+    return new Promise(resolve => redis.hmset(`document:${nextDoc}`, description, () => resolve(nextDoc)));
   });
 }
 
